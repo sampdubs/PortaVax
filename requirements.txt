@@ -1,0 +1,6 @@
+numpy
+pandas
+googlemaps
+multiprocess
+tqdm
+plotly
