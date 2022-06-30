@@ -75,13 +75,14 @@ mag = MovingAverage3D(needsZero=True)
 gyro = MovingAverage3D(needsZero=True)
 
 def main():
-    # Read acceleration, magnetometer, gyroscope, temperature.
+    # Read acceleration, magnetometer, gyroscope, temperature
+    # Update moving averages
     accel.update(sensor.acceleration)
     mag.update(sensor.magnetic)
     gyro.update(sensor.gyro)
     temp.update(sensor.temperature)
     os.system("clear")
-    # Print values.
+    # Print values
     print("Acceleration (m/s^2):\t\t{}".format(accel))
     print("Magnetometer (gauss):\t\t{}".format(mag))
     print("Gyroscope (degrees/sec):\t{}".format(gyro))
@@ -91,11 +92,12 @@ if __name__ == "__main__":
     for _ in range(400):
         main()
 
+    # Zero based on initial 400 values
     accel.zero()
     mag.zero()
     gyro.zero()
 
     # Main loop will read the acceleration, magnetometer, gyroscope, Temperature
-    # values every second and print them out.
+    # values and print them out.
     while True:
         main()
