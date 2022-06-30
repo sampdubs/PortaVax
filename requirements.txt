@@ -4,3 +4,4 @@ googlemaps
 multiprocess
 tqdm
 plotly
+adafruit-circuitpython-lsm9ds0
