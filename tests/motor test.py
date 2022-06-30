@@ -11,4 +11,4 @@ def drive(speed):
 t = 0
 while True:
     drive(sin(t))
-    t += 0.01
+    t += 0.00005
