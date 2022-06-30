@@ -60,7 +60,7 @@ class MovingAverage3D():
         return [ma._average() for ma in self.data]
 
     def __str__(self):
-        return "({0:0.3f},{1:0.3f},{2:0.3f})".format(*self.data)
+        return "({}, {}, {})".format(*self.data)
     
     def __format__(self, spec):
         return str(self)
