@@ -24,7 +24,7 @@ class PortaVax():
         self.gyro = Gyro()
 
     def drive(self, speed, turn):
-        self.robot.value = (speed + turn, speed - turn)
+        self.differential_drive(max(-1, min(1, speed + turn)), max(-1, min(1, speed - turn)))
 
     def differential_drive(self, left, right):
         self.robot.value = (left, right)
