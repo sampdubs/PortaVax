@@ -6,3 +6,5 @@ tqdm
 plotly
 adafruit-circuitpython-lsm9ds0
 geographiclib
+tk
+gps
