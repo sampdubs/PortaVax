@@ -17,9 +17,10 @@ class PortaVax():
         self.robot = Robot(left=left_motor_pins, right=right_motor_pins)
         self.gpsd = GPSD
         self.target_lat_lon = target_lat_lon
-        self.forward_distance_sensor = DistanceSensor(*forward_distance_pins)
-        self.left_distance_sensor = DistanceSensor(*left_distance_pins)
-        self.right_distance_sensor = DistanceSensor(*right_distance_pins)
+        if forward_distance_pins:
+            self.forward_distance_sensor = DistanceSensor(*forward_distance_pins)
+            self.left_distance_sensor = DistanceSensor(*left_distance_pins)
+            self.right_distance_sensor = DistanceSensor(*right_distance_pins)
         self.gyro = Gyro()
 
     def drive(self, speed, turn):
