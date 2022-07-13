@@ -17,6 +17,7 @@ if __name__ == "__main__":
         angle = 0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pv.drive(0, 0)
                 exit()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
