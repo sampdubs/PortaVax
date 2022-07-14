@@ -31,6 +31,9 @@ class Ultra:
         # save StartTime
         while GPIO.input(self.GPIO_ECHO) == 0:
             StartTime = time.time()
+            if StartTime - StopTime > 0.2:
+                self.distance = -1
+                return
     
         # save time of arrival
         while GPIO.input(self.GPIO_ECHO) == 1:
@@ -50,17 +53,3 @@ class Ultra:
     
     def stop(self):
         self.timer.cancel()
-    
-if __name__ == '__main__':
-    ultra = Ultra(7, 8)
-    ultra.start(0.1)
-    try:
-        while True:
-            print(ultra.distance)
-            time.sleep(0.5)
-
-        # Reset by pressing CTRL + C
-    except KeyboardInterrupt:
-        print("Measurement stopped by User")
-        ultra.stop()
-        GPIO.cleanup()

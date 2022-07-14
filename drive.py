@@ -1,7 +1,8 @@
 from gyro import Gyro
+from ultra import Ultra
 from gpiozero import Robot, DistanceSensor
 from geographiclib.geodesic import Geodesic
-from time import time
+from time import sleep, time
 import threading
 
 class PortaVax():
@@ -18,9 +19,12 @@ class PortaVax():
         self.gpsd = GPSD
         self.target_lat_lon = target_lat_lon
         if forward_distance_pins:
-            self.forward_distance_sensor = DistanceSensor(*forward_distance_pins)
-            self.left_distance_sensor = DistanceSensor(*left_distance_pins)
-            self.right_distance_sensor = DistanceSensor(*right_distance_pins)
+            self.forward_distance_sensor = Ultra(*forward_distance_pins)
+            self.left_distance_sensor = Ultra(*left_distance_pins)
+            self.right_distance_sensor = Ultra(*right_distance_pins)
+            self.forward_distance_sensor.start(0.1)
+            self.left_distance_sensor.start(0.1)
+            self.right_distance_sensor.start(0.1)
         self.gyro = Gyro()
 
     def drive(self, speed, turn):
@@ -32,8 +36,17 @@ class PortaVax():
     def stop(self):
         self.robot.stop()
     
+    def get_distances(self):
+        return (
+            self.left_distance_sensor.distance,
+            self.forward_distance_sensor.distance,
+            self.right_distance_sensor.distance
+        )
+    
     def get_position(self):
-        return (0, 0) # TODO: replace with actual gps
+        while (nx := self.gpsd.next())['class'] != 'TPV':
+            sleep(0.1)
+        return (getattr(nx,'lat', 0), getattr(nx,'long', 0)) # TODO: replace with actual gps
     
     def get_bearing(self):
         return 0 # TODO: replace with actual gps
